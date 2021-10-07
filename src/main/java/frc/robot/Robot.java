@@ -45,9 +45,9 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     CANSparkMax m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
-    CANSparkMax m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushed);
-    CANSparkMax m_backLeftMotor = new CANSparkMax(backLeftDeviceID, MotorType.kBrushed);
-    CANSparkMax m_backRightMotor = new CANSparkMax(backRightDeviceID, MotorType.kBrushed);
+    CANSparkMax m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
+    CANSparkMax m_backLeftMotor = new CANSparkMax(backLeftDeviceID, MotorType.kBrushless);
+    CANSparkMax m_backRightMotor = new CANSparkMax(backRightDeviceID, MotorType.kBrushless);
     m_myRobotFront = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_myRobotBack = new DifferentialDrive(m_backLeftMotor, m_backRightMotor);
   }
