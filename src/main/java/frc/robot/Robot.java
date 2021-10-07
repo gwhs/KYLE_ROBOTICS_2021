@@ -31,9 +31,9 @@ public class Robot extends TimedRobot {
   private DifferentialDrive m_myRight;
 
   private final XboxController m_driverController = new XboxController(0);
-  private static final int leftDeviceID = 51;
-  private static final int rightDeviceID = 1;
-  private static final int backLeftDeviceID = 2;
+  private static final int m_myRightGroupEnd = 51;
+  private static final int m_myRightGroupMiddle = 1;
+  private static final int m_myRightGroupFront = 2;
   private static final int backRightDeviceID = 10;
   /**
    * This function is run when the robot is first started up and should be used
@@ -44,9 +44,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    CANSparkMax m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
-    CANSparkMax m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
-    CANSparkMax m_backLeftMotor = new CANSparkMax(backLeftDeviceID, MotorType.kBrushless);
+    CANSparkMax m_leftMotor = new CANSparkMax(m_myRightGroupEnd, MotorType.kBrushless);
+    CANSparkMax m_rightMotor = new CANSparkMax(m_myRightGroupMiddle, MotorType.kBrushless);
+    CANSparkMax m_backLeftMotor = new CANSparkMax(m_myRightGroupFront, MotorType.kBrushless);
     CANSparkMax m_backRightMotor = new CANSparkMax(backRightDeviceID, MotorType.kBrushless);
     m_myRight = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_myLeft = new DifferentialDrive(m_backLeftMotor, m_backRightMotor);
