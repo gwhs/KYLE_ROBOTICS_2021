@@ -27,8 +27,8 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private DifferentialDrive m_myRobotFront;
-  private DifferentialDrive m_myRobotBack;
+  private DifferentialDrive m_myLeft;
+  private DifferentialDrive m_myRight;
 
   private final XboxController m_driverController = new XboxController(0);
   private static final int leftDeviceID = 51;
@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
     CANSparkMax m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
     CANSparkMax m_backLeftMotor = new CANSparkMax(backLeftDeviceID, MotorType.kBrushless);
     CANSparkMax m_backRightMotor = new CANSparkMax(backRightDeviceID, MotorType.kBrushless);
-    m_myRobotFront = new DifferentialDrive(m_leftMotor, m_rightMotor);
-    m_myRobotBack = new DifferentialDrive(m_backLeftMotor, m_backRightMotor);
+    m_myRight = new DifferentialDrive(m_leftMotor, m_rightMotor);
+    m_myLeft = new DifferentialDrive(m_backLeftMotor, m_backRightMotor);
   }
 
 
@@ -106,8 +106,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_myRobotFront.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
-    m_myRobotBack.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
+    m_myRight.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
+    m_myLeft.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
   }
 
   /** This function is called once when the robot is disabled. */
