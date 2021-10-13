@@ -27,14 +27,16 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private DifferentialDrive m_myLeft;
-  private DifferentialDrive m_myRight;
+  private DifferentialDrive m_myRobotRight;
+  private DifferentialDrive m_myRobotLeft;
 
   private final XboxController m_driverController = new XboxController(0);
-  private static final int m_myRightGroupEnd = 51;
-  private static final int m_myRightGroupMiddle = 1;
-  private static final int m_myRightGroupFront = 2;
-  private static final int backRightDeviceID = 10;
+  private static final int m_myRobotRightGroupEnd = 6;
+  private static final int m_myRobotRightGroupMiddle = 5;
+  private static final int m_myRobotRightGroupFront = 4;
+  private static final int m_myRobotLeftGroupEnd = 3;
+  private static final int m_myRobotLeftGroupMiddle = 2;
+  private static final int m_myRobotLeftGroupFront = 1;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -44,12 +46,14 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    CANSparkMax m_leftMotor = new CANSparkMax(m_myRightGroupEnd, MotorType.kBrushless);
-    CANSparkMax m_rightMotor = new CANSparkMax(m_myRightGroupMiddle, MotorType.kBrushless);
-    CANSparkMax m_backLeftMotor = new CANSparkMax(m_myRightGroupFront, MotorType.kBrushless);
-    CANSparkMax m_backRightMotor = new CANSparkMax(backRightDeviceID, MotorType.kBrushless);
-    m_myRight = new DifferentialDrive(m_leftMotor, m_rightMotor);
-    m_myLeft = new DifferentialDrive(m_backLeftMotor, m_backRightMotor);
+    CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftGroupEnd, MotorType.kBrushless);
+    CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftGroupMiddle, MotorType.kBrushless);
+    CANSparkMax m_myRobotLeftFront = new CANSparkMax(m_myRobotLeftGroupFront, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightGroupEnd, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightGroupMiddle, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightGroupFront, MotorType.kBrushless);
+    m_myRobotRight = new DifferentialDrive(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle, m_myRobotLeftGroupFront);
+    m_myRobotLeft = new DifferentialDrive(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
   }
 
 
@@ -106,8 +110,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_myRight.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
-    m_myLeft.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
+    m_myRobotLeftGroup.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
+    m_myRobotRightGroup.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
   }
 
   /** This function is called once when the robot is disabled. */
