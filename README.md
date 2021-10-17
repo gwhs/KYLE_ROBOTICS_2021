@@ -18,4 +18,4 @@
   #### 15. 6 gears
   #### 16. 1 eithernet adapter
   #### 17. 1 light
-*refer to the png of a model of the robot*
+*refer to the png for a model of the robot*
