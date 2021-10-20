@@ -1,9 +1,11 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,16 +29,16 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private DifferentialDrive m_myRobotRight;
-  private DifferentialDrive m_myRobotLeft;
+  private SpeedControllerGroup m_myRobotLeft;
+  private SpeedControllerGroup m_myRobotRight;
 
   private final XboxController m_driverController = new XboxController(0);
-  private static final int m_myRobotRightGroupEnd = 6;
-  private static final int m_myRobotRightGroupMiddle = 5;
-  private static final int m_myRobotRightGroupFront = 4;
-  private static final int m_myRobotLeftGroupEnd = 3;
-  private static final int m_myRobotLeftGroupMiddle = 2;
-  private static final int m_myRobotLeftGroupFront = 1;
+  private static final int m_myRobotLeftEnd = 6;
+  private static final int m_myRobotLeftMiddle = 5;
+  private static final int m_myRobotLeftFront = 4;
+  private static final int m_myRobotRightEnd = 3;
+  private static final int m_myRobotRightMiddle = 2;
+  private static final int m_myRobotRightFront = 1;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -46,14 +48,14 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftGroupEnd, MotorType.kBrushless);
-    CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftGroupMiddle, MotorType.kBrushless);
-    CANSparkMax m_myRobotLeftFront = new CANSparkMax(m_myRobotLeftGroupFront, MotorType.kBrushless);
-    CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightGroupEnd, MotorType.kBrushless);
-    CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightGroupMiddle, MotorType.kBrushless);
-    CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightGroupFront, MotorType.kBrushless);
-    m_myRobotRight = new DifferentialDrive(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle, m_myRobotLeftGroupFront);
-    m_myRobotLeft = new DifferentialDrive(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
+    CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftEnd, MotorType.kBrushless);
+    CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftMiddle, MotorType.kBrushless);
+    CANSparkMax m_myRobotLeftGroupFront = new CANSparkMax(m_myRobotLeftFront, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightEnd, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightMiddle, MotorType.kBrushless);
+    CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightFront, MotorType.kBrushless);
+    m_myRobotLeft = new SpeedControllerGroup(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle, m_myRobotLeftGroupFront);
+    m_myRobotRight = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
   }
 
 
@@ -110,8 +112,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_myRobotLeftGroup.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
-    m_myRobotRightGroup.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
+    m_myRobotLeft.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
+    m_myRobotRight.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
   }
 
   /** This function is called once when the robot is disabled. */
