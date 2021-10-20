@@ -6,6 +6,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -52,11 +53,13 @@ public class Robot extends TimedRobot {
     CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupFront = new CANSparkMax(m_myRobotLeftFront, MotorType.kBrushless);
+    SpeedControllerGroup m_leftGroup = new SpeedControllerGroup(m_myRobotLeftEnd, m_myRobotLeftMiddle, m_myRobotLeftFront);
     CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightFront, MotorType.kBrushless);
-    m_myRobotLeft = new DifferentialDrive(m_myRobotLeftGroup);
-    m_myRobotRight = new DifferentialDrive(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
+    SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightEnd, m_myRobotRightMiddle, m_myRobotRightFront);
+    m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
+    
   }
 
 
