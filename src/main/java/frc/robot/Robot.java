@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_myRobot.tankDrive(m_driverController.getY(Hand.kRight), m_driverController.getY(Hand.kLeft));
+    //Swapped (Hand.kLeft) and (Hand.kRight) so you let go of Right joystick you turn right and vice versa
     //m_myRobot.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
   }
 
