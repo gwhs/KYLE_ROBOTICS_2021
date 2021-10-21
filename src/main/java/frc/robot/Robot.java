@@ -30,8 +30,8 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private DifferentialDrive m_myRobotLeft;
-  private DifferentialDrive m_myRobotRight;
+  private DifferentialDrive m_myRobot;
+  //private DifferentialDrive m_myRobotRight;
 
 
   private final XboxController m_driverController = new XboxController(0);
@@ -53,11 +53,11 @@ public class Robot extends TimedRobot {
     CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupFront = new CANSparkMax(m_myRobotLeftFront, MotorType.kBrushless);
-    SpeedControllerGroup m_leftGroup = new SpeedControllerGroup(m_myRobotLeftEnd, m_myRobotLeftMiddle, m_myRobotLeftFront);
+    SpeedControllerGroup m_leftGroup = new SpeedControllerGroup(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle, m_myRobotLeftGroupFront);
     CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightFront, MotorType.kBrushless);
-    SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightEnd, m_myRobotRightMiddle, m_myRobotRightFront);
+    SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
     m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
     
   }
@@ -116,8 +116,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_myRobotLeft.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
-    m_myRobotRight.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
+    m_myRobot.tankDrive(m_driverController.getY(Hand.kLeft), m_driverController.getY(Hand.kRight));
+    //m_myRobotRight.tankDrive(m_driverController.getTriggerAxis(Hand.kLeft), m_driverController.getTriggerAxis((Hand.kRight)));
   }
 
   /** This function is called once when the robot is disabled. */
