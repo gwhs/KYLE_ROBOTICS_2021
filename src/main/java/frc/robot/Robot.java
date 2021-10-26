@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
     CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightFront, MotorType.kBrushless);
     SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
+    //m_myRobot____ is not actually a group it defines the CANspark as seen above. Change if needed.
     m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
     
   }
