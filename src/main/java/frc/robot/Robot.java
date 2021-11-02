@@ -5,7 +5,8 @@
 
 package frc.robot;
 
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
   private static final int m_myRobotRightEnd = 3;
   private static final int m_myRobotRightMiddle = 2;
   private static final int m_myRobotRightFront = 1;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -60,6 +62,17 @@ public class Robot extends TimedRobot {
     SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
     //m_myRobot____ is not actually a group it defines the CANspark as seen above. Change if needed.
     m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
+    Solenoid leftOneSolenoid = new Solenoid(1);
+
+    leftOneSolenoid.set(true);
+    leftOneSolenoid.set(false);
+    /*DoubleSolenoid leftSolenoid = new DoubleSolenoid(0, 1);
+    DoubleSolenoid rightSoleniod = new DoubleSolenoid(11, 3, 2);
+
+
+    leftSolenoid.set(kOff);
+    rightSoleniod.set(kForward);
+    leftSolenoid.set(kReverse);*/
     
   }
 
@@ -117,8 +130,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //m_myRobot.tankDrive(m_driverController.getX(Hand.kLeft), m_driverController.getX(Hand.kRight));
-    m_myRobot.arcadeDrive(m_driverController.getY(Hand.kLeft)*.75, m_driverController.getX(Hand.kRight)*.7);
+    //m_myRobot.tankDrive(m_driverController.getX(Hand.kLeft), m_driverController.getX(Hand.kRight)); //Not needed
+    m_myRobot.arcadeDrive(m_driverController.getY(Hand.kLeft)*.3, m_driverController.getX(Hand.kRight)*.5);
     //m_myRobot.arcadeDrive(m_driverController.getX();
     //m_myRobot.tankDrive(m_driverController.getX(Hand.kRight),m_driverController.getX(Hand.kRight));
     //Swapped (Hand.kLeft) and (Hand.kRight) so you let go of Right joystick you turn right and vice versa
