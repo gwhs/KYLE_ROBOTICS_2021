@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.revrobotics.CANSparkMax;
@@ -42,7 +43,11 @@ public class Robot extends TimedRobot {
   private static final int m_myRobotRightEnd = 3;
   private static final int m_myRobotRightMiddle = 2;
   private static final int m_myRobotRightFront = 1;
-
+  private static final int leftSolenoinOne = 0;
+  private static final int leftSolenoidTwo = 1;
+  private static final int solenoidModule = 11;
+  private static Compressor compressor;
+  
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -55,19 +60,22 @@ public class Robot extends TimedRobot {
     CANSparkMax m_myRobotLeftGroupEnd = new CANSparkMax(m_myRobotLeftEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupMiddle = new CANSparkMax(m_myRobotLeftMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotLeftGroupFront = new CANSparkMax(m_myRobotLeftFront, MotorType.kBrushless);
-    SpeedControllerGroup m_leftGroup = new SpeedControllerGroup(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle, m_myRobotLeftGroupFront);
+    SpeedControllerGroup m_leftGroup = new SpeedControllerGroup(m_myRobotLeftGroupEnd, m_myRobotLeftGroupMiddle,
+        m_myRobotLeftGroupFront);
     CANSparkMax m_myRobotRightGroupEnd = new CANSparkMax(m_myRobotRightEnd, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupMiddle = new CANSparkMax(m_myRobotRightMiddle, MotorType.kBrushless);
     CANSparkMax m_myRobotRightGroupFront = new CANSparkMax(m_myRobotRightFront, MotorType.kBrushless);
-    SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle, m_myRobotRightGroupFront);
-    //m_myRobot____ is not actually a group it defines the CANspark as seen above. Change if needed.
+    SpeedControllerGroup m_RightGroup = new SpeedControllerGroup(m_myRobotRightGroupEnd, m_myRobotRightGroupMiddle,
+        m_myRobotRightGroupFront);
+    // m_myRobot____ is not actually a group it defines the CANspark as seen above.
+    // Change if needed.
     m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
-    Solenoid leftOneSolenoid = new Solenoid(1);
+    compressor = new Compressor();
+    compressor = null;
+    
 
-    leftOneSolenoid.set(true);
-    leftOneSolenoid.set(false);
-    /*DoubleSolenoid leftSolenoid = new DoubleSolenoid(0, 1);
-    DoubleSolenoid rightSoleniod = new DoubleSolenoid(11, 3, 2);
+    /*DoubleSolenoid leftSolenoid = new DoubleSolenoid(leftSolenoinOne, leftSolenoidTwo);
+    DoubleSolenoid rightSoleniod = new DoubleSolenoid(solenoidModule, 3, 2);
 
 
     leftSolenoid.set(kOff);
