@@ -6,7 +6,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -43,10 +43,9 @@ public class Robot extends TimedRobot {
   private static final int m_myRobotRightEnd = 3;
   private static final int m_myRobotRightMiddle = 2;
   private static final int m_myRobotRightFront = 1;
-  private static final int leftSolenoinOne = 0;
-  private static final int leftSolenoidTwo = 1;
-  private static final int solenoidModule = 11;
   private static Compressor compressor;
+  private DoubleSolenoid leftDouble = new DoubleSolenoid(0, 1);
+  private DoubleSolenoid rightDouble = new DoubleSolenoid(/* The PCM CAN ID */ 0, 2, 3);
   
   /**
    * This function is run when the robot is first started up and should be used
@@ -72,16 +71,9 @@ public class Robot extends TimedRobot {
     m_myRobot = new DifferentialDrive(m_leftGroup, m_RightGroup);
     compressor = new Compressor();
     compressor = null;
-    
 
-    /*DoubleSolenoid leftSolenoid = new DoubleSolenoid(leftSolenoinOne, leftSolenoidTwo);
-    DoubleSolenoid rightSoleniod = new DoubleSolenoid(solenoidModule, 3, 2);
-
-
-    leftSolenoid.set(kOff);
-    rightSoleniod.set(kForward);
-    leftSolenoid.set(kReverse);*/
-    
+    leftDouble.set(DoubleSolenoid.Value.kReverse);
+    rightDouble.set(DoubleSolenoid.Value.kForward);
   }
 
 
@@ -98,6 +90,10 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
    // m_leftMotor.set(m_driverController.getY(Hand.kLeft) * 0.50);
    // m1_Motor.set(ControlMode.PercentOutput, m_driverController.getY(Hand.kRight) * 0.25);
+   if (m_driverController.getYButtonPressed()) {
+    leftDouble.toggle();
+    rightDouble.toggle();
+  }
   }
 
   /**
@@ -139,7 +135,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //m_myRobot.tankDrive(m_driverController.getX(Hand.kLeft), m_driverController.getX(Hand.kRight)); //Not needed
-    m_myRobot.arcadeDrive(m_driverController.getY(Hand.kLeft)*.3, m_driverController.getX(Hand.kRight)*.5);
+    m_myRobot.arcadeDrive(m_driverController.getY(Hand.kLeft)*1, m_driverController.getX(Hand.kRight)*.9);
     //m_myRobot.arcadeDrive(m_driverController.getX();
     //m_myRobot.tankDrive(m_driverController.getX(Hand.kRight),m_driverController.getX(Hand.kRight));
     //Swapped (Hand.kLeft) and (Hand.kRight) so you let go of Right joystick you turn right and vice versa
